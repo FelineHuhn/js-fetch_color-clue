@@ -3,6 +3,7 @@ import { setColorToGuess, getRandomHexCode } from "./utils.js";
 export async function fetchNewColor() {
   const hexCode = getRandomHexCode();
   const colorApiUrl = `https://www.thecolorapi.com/id?hex=${hexCode}`;
+
   /**
    * Hint 1:
    * Use the fetch API to get the hex value and the name of the closest
@@ -18,6 +19,14 @@ export async function fetchNewColor() {
    */
 
   // --v-- your code here --v--
+  const response = await fetch(colorApiUrl);
+  const randomColor = await response.json();
+  console.log(randomColor.name.value, randomColor.name.closest_named_hex);
+
+  const colorName = randomColor.name.value;
+  const closestNamedHex = randomColor.name.closest_named_hex;
+
+  setColorToGuess(closestNamedHex, colorName);
 
   // --^-- your code here --^--
 }
